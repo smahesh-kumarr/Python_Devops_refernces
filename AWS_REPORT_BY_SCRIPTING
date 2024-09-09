@@ -25,3 +25,16 @@ aws lambda list-functions >> "$REPORT_FILE 2>&1"
 # List the IAM users
 echo -e "\nIAM Users:" >> "$REPORT_FILE
 aws iam list-users >> "$REPORT_FILE 2>&1"
+
+###########################################
+#chmod +x aws_report.sh
+#./aws_report.sh
+#ls /home/ec2-user/
+#cat /home/ec2-user/report_$(date +%Y-%m-%d).txt
+#crontab -e
+#sudo yum install cronie
+#sudo systemctl start crond
+#sudo systemctl enable crond
+#crontab -e
+#26 19 * * * /home/ec2-user/aws_report.sh
+############################################
