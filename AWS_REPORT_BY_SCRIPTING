@@ -1,0 +1,27 @@
+#!/bin/bash
+set -x
+#########################################
+#Author : Mahesh Kumar S
+Generating aws resource reporting on daily basis by crontab
+########################################
+
+REPORT_FILE="/home/ec2-user/report_$(date +%Y-%m-%d).txt"
+
+
+echo "Generating report for $(date)" > "$REPORT_FILE"
+
+# List the S3 buckets
+echo -e "\nS3 Buckets:" >> "$REPORT_FILE"
+aws s3 ls >> "$REPORT_FILE 2>&1" 
+
+# List the EC2 instances
+echo -e "\nEC2 Instances:" >> "$REPORT_FILE"
+aws ec2 describe-instances | jq '.Reservations[] | .Instances[] | .InstanceId' >> "$REPORT_FILE 2>&1"
+
+# List the Lambda functions
+echo -e "\nLambda Functions:" >> "$REPORT_FILE"
+aws lambda list-functions >> "$REPORT_FILE 2>&1"
+
+# List the IAM users
+echo -e "\nIAM Users:" >> "$REPORT_FILE
+aws iam list-users >> "$REPORT_FILE 2>&1"
