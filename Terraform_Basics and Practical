@@ -1,0 +1,136 @@
+Terraform - Infrastructure as a Code
+	    
+Terraform is a tool to manage a infrastructure using a code configuration 
+Developed by a Hashicop 
+Setting up a Server and databases and other infrastructure components in 
+cloud
+
+Iac is method of provisioning a resources through machine-readable config 
+files rather than physical hardware setup or manual configuration
+
+If you need to migrate from various csp frequently terraform helps to change 
+the config without over head loads
+
+Works as API as Code
+
+Steps Involved 
+Define the infrastructure in configuration files 
+Use Hashicop terraform documentation 
+
+Plan => Review the Terraform code before exceuting it
+
+Apply => Apply the state files and Provisioning it 
+
+If Linux to install terraform packages 
+sudo apt-get update
+sudo apt-get install -y gnupg software-properties-common
+
+Four commands 
+
+terraform init => Initialize it (Terraform will initialize the provider for you)
+
+terraform plan => Dry Run => What Going to create with the Terraform tf file 
+
+terraform apply 
+
+terraform destroy
+
+Input.tf => To get dynamic variables for reducing the hardcore 
+
+Output.tf => If you need to wish to show the ip of the instances once it instances are created
+	     This will expecting the when the instance is created
+
+
+
+
+
+How to authendicate to your csp account => aws has aws cli and azure has principle service
+
+
+Flow along
+
+1).Create directory  => mkdir terraform
+Change the dir => cd terraform 
+2).Create main.tf file and write the config files =>  (New-Item -Path . -Name "main.tf" -ItemType "File")
+3).write config file -> notepad main.tf
+4).Initalize the dir -> terraform init 
+5).To recheck ->terraform plan
+6).aws configure (aws cli necessary on your local system) -> Enter the access key and 
+secret access key
+7).To execute ->terraform apply
+8).Check the AWS console 
+
+main.tf
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
+    }
+  }
+
+  required_version = ">= 1.2.0"
+}
+
+provider "aws" {
+  region  = "us-west-2"
+}
+
+resource "aws_instance" "app_server" {
+  ami           = "ami-830c94e3"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "Terraform_Demo"
+  }
+}
+
+terraform init
+terraform plan
+terraform apply 
+terraform show
+
+output.tf => Required It will useful to know detailed about created resources 
+terraform.tfstate => To track the resources what are created in infrastructure with id and count and ip
+		    Dont store state file locally 
+		    Good to merge in GitHub if you are work with Team
+		    Dont Manipulate the Terraform It will be Corruptted | Only Give Read Permission
+
+Ideal Set up of a Terraform 
+
+User --------------> Jenkins --------> GitHub(Terraform Configuration Files) -------> AWS
+						|
+						|
+						|
+						|
+						v
+					 S3 (For State Files) ---> Dynamo DB (For Locking Solutions)
+
+
+
+Modules 
+
+Existing Modules 
+Write Your Own Modules
+
+
+Problems 
+
+State File is single source of Truth
+
+In GitOps, the system checks Git for changes and applies them automatically. Terraform requires a separate step to apply changes, making it harder to fully integrate into this GitOps flow.
+
+ Imagine you’re managing hundreds of AWS resources (like EC2 instances, VPCs, and subnets). Writing and understanding these large configurations can become overwhelming, requiring significant effort to maintain and update them.
+
+While Terraform can create a server, using it to install software on that server is less effective than a dedicated configuration tool like Ansible. For instance, if you want to update an application on 100 servers, Terraform wouldn’t be the ideal tool, but configuration management tools would handle this better.
+
+
+Input/Output variables
+
+ Imagine deploying an EC2 instance in AWS. You can create a variable instance_type, so when someone else uses your configuration, they can choose whether to deploy a small or large instance without modifying the code.
+
+
+After deploying the EC2 instance, the output can display its public IP address, making it easier to connect to the server.
+
+If you deploy a virtual machine today and then update its settings a month later, Terraform looks at the state file to see the previous settings and applies only the necessary changes without redeploying everything
