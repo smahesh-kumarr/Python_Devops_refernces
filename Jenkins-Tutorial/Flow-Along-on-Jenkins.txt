@@ -28,22 +28,35 @@ Step 4 : http://public-ip:8080/
 
 Step 5 : To get password path 
 
-cat path 
+cat /var/lib/jenkins/secrets/initialAdminPassword
 
 Step 6 : Copy the password and Authendicate to the Jenkins.
 
 Step 7 : Sign in to Jenkins application 
+Step 8 : Install docker io on jenkins-master
+sudo apt install docker.io
 
-Step 8 : Install Docker Pipeline Plugins in Jenkins to create create docker container when 
+Step 9: Grant Jenkins user and Ubuntu user permission to docker deamon.
+sudo su - 
+usermod -aG docker jenkins
+usermod -aG docker ubuntu
+systemctl restart docker
+
+Step 10 : Install Docker Pipeline Plugins in Jenkins to create create docker container when 
 	 the Jenkins files are uploaded
 
-Step 9 : Try to Write Groovy Script 
+Step 11 : Try to Write Groovy Script 
 
-Step 10 : Or try Script generator 
+Step 12 : Or try Script generator 
 
-Step 11 : Go to the SCM (Source Code Management) to give directory details
+Step 13 : Go to the SCM (Source Code Management) to give directory details
 
-Step 12 : Once You have Given all the details And built
+Step 14 : Once You have Given all the details And built it 
+
+Step 15 : You can running process or container that executing the task on machine by command
+
+ps docker
+
 
 //Container are created when the build the Jenkins once its work Finished no exist of container 
 
