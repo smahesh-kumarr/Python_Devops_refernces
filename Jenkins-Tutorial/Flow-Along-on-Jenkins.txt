@@ -1,0 +1,53 @@
+Flow Along on Jenkins
+/
+***
+***
+***
+Author : MAHESH KUMAR S
+Session : Practice on Jenkins
+***
+***
+/
+Step 1 : Create a Jenkins-master EC2 in AWS 
+Step 2 : Update and Install The dependencies needed(Java and Jenkins installation)
+sudo apt update
+sudo apt install openjdk-17-jre
+
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install Jenkins
+
+Step 3 : Get the port number of Jenkins (ps -ef | grep jenkins ) To Edit the InBound
+	 Traffic in Security Group (8080) to allow ur ip or set all traffic to allow on TCP
+
+Step 4 : http://public-ip:8080/
+
+Step 5 : To get password path 
+
+cat path 
+
+Step 6 : Copy the password and Authendicate to the Jenkins.
+
+Step 7 : Sign in to Jenkins application 
+
+Step 8 : Install Docker Pipeline Plugins in Jenkins to create create docker container when 
+	 the Jenkins files are uploaded
+
+Step 9 : Try to Write Groovy Script 
+
+Step 10 : Or try Script generator 
+
+Step 11 : Go to the SCM (Source Code Management) to give directory details
+
+Step 12 : Once You have Given all the details And built
+
+//Container are created when the build the Jenkins once its work Finished no exist of container 
+
+//This makes no need of Infrastructure Management this makes job easier and no resources are wasting 
+
+
+ 
