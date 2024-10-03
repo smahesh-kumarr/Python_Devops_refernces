@@ -1,0 +1,81 @@
+Configuration Management 
+
+Puppet  => Pull model | Master Slave | Puppet Language 
+Ansible => Push model | Agentless |  inventory or Dynamic Inventory
+	   | Good with the windows(ssh) / Linux(WinRM) | Simple (yaml language) | Can write 
+	   own modules 
+	=>  Can share the Ansible modules(Galaxy) | Uses Python preferable
+
+Disadvantages of Ansible => (Slight difficult in Windows | Debugging | Performance ) =>Not 
+			                                                 bad with the Ansible 
+							                 Need to improve in 
+									Ansible)
+Follow through along with Ansible in AWS Cloud 
+
+Step 1 : Create two or more ec2 instances
+step 2 : Select one as a ansible configure server rest of them are target server
+step 3 : To ssh to other servers from ansible_config server generate the ssh-keygen 
+step 4 : Rewrite the authorized_keys credentials of other servers and replace the private 
+	key of the ansible_server To authendicate without password 
+	re the respective ip of the servers
+ 
+step 5 : Write adhoc or playbooks to execute the script
+adhoc (run one or two commands)  and playboo
+step 6 : Create the inventory file and configuks to run (bunch of tasks)
+
+step 6 : Configure nginx | apache | nodejs in all other server
+To run ansible playbook -i inventory nginx.yml
+---
+- name: Install and Start nginx
+  hosts: all
+  become: true
+    
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+
+
+ansible playbook -i inventory apache.yml
+---
+- name: Install Apache
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Start Apache
+      service:
+        name: apache2
+        state: started
+
+
+ansible playbook -i inventory nodejs.yml
+---
+- name: Install Node.js
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+
+check in all server wheather it installed in all other servers
+
+
+Ansible roles => To write a complex playbooks => To write the structured 
+playbooks make easier to understand
+ansible-galaxy role init Kubernetes
+
+============================================================================
